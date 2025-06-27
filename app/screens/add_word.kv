@@ -1,0 +1,76 @@
+#:import dp kivy.metrics.dp
+#:import sp kivy.metrics.sp
+
+<AddWordScreen>:
+    canvas.before:
+        Color:
+            rgba: 0.125, 0.698, 0.667, 1  # Light teal background
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: dp(20)
+        padding: dp(24)
+
+        Label:
+            text: "Add a New Word"
+            size_hint_y: None
+            height: dp(40)
+            font_size: sp(28)
+            bold: True
+            color: 0.2, 0.4, 0.4, 1
+            font_name: 'fonts/Roboto/static/Roboto-Bold.ttf'
+
+            
+        CustomRoundedTextInput:
+            id: word_input
+            hint_text: "Enter a word"
+
+        CustomRoundedButton:
+            text: "Translate"
+            on_press: root.on_translate(word_input)
+
+
+        CustomRoundedTextInput:
+            id: translation_output
+            read_only: True
+
+
+        Widget:  # Spacer to push the back button down
+            size_hint_y: 1
+
+        CustomRoundedButton:
+            text: "Back to Home"
+            on_press: root.go_back()
+
+<CustomRoundedTextInput@TextInput>:
+    size_hint_y: None
+    height: dp(50)
+    padding: [dp(12), dp(12), dp(12), dp(12)]
+    background_normal: ''
+    background_active: ''
+    background_color: 1, 1, 1, 1  # Optional: fully transparent (canvas handles background)
+    foreground_color: 0, 0, 0, 1
+    cursor_color: 0, 0, 0, 1
+    font_size: sp(18)
+    multiline: False
+
+    
+<CustomRoundedButton@Button>:
+    size_hint_y: None
+    height: dp(50)
+    background_normal: ''
+    background_color: 0, 0, 0, 0
+    color: 0.2, 0.4, 0.4, 1
+    font_size: sp(18)
+    font_name: 'fonts/Roboto/static/Roboto-Bold.ttf'
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [10]
