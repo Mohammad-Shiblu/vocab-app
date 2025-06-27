@@ -1,0 +1,33 @@
+#:import dp kivy.metrics.dp
+
+<WordListScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: dp(10)
+        padding: dp(10)
+
+        Label:
+            text: "Vocabulary List"
+            font_size: '28sp'
+            size_hint_y: None
+            height: dp(50)
+            bold: True
+            color: 0.1, 0.3, 0.3, 1
+
+        TextInput:
+            id: search_input
+            size_hint_y: None
+            height: dp(40)
+            multiline: False
+            hint_text: "Search words..."
+            on_text: root.filter_words(self.text)
+
+        ScrollView:
+            size_hint_y: 1
+
+            GridLayout:
+                id: word_container
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: dp(5)
