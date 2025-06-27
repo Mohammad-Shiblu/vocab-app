@@ -1,24 +1,46 @@
 from kivy.uix.screenmanager import Screen
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
-from app.services.database import get_all_words
-from kivy.uix.button import Button
+from kivy.utils import get_color_from_hex
+from app.services.database import get_all_words  
 
 class WordListScreen(Screen):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.layout = BoxLayout(orientation='vertical')
-        self.add_widget(self.layout)
-        
+    all_words = []  # store all words here
+
     def on_enter(self):
-        self.layout.clear_widgets()
-        words = get_all_words()
-        if not words:
-            self.layout.add_widget(Label(text="No words saved yet."))
-        else:
-            for word, meaning in words:
-                self.layout.add_widget(Label(text=f"{word}: {meaning}"))
-            
-        btn_back = Button(text="Back to Home", size_hint_y=0.1)
-        btn_back.bind(on_press=lambda x: setattr(self.manager, 'current', 'home'))
-        self.layout.add_widget(btn_back)
+        self.all_words = get_all_words()
+        self.display_words(self.all_words)
+
+    def display_words(self, words):
+        word_container = self.ids.word_container
+        word_container.clear_widgets()
+
+        from kivy.graphics import Color, Rectangle
+        from kivy.utils import get_color_from_hex
+
+        alt_colors = ['#e0f7fa', '#ffffff']
+
+        for idx, (word, meaning) in enumerate(words):
+            row = BoxLayout(orientation='horizontal', size_hint_y=None, height=50, padding=[10,0,10,0], spacing=10)
+
+            row.canvas.before.clear()
+            with row.canvas.before:
+                Color(*get_color_from_hex(alt_colors[idx % 2]))
+                rect = Rectangle(pos=row.pos, size=row.size)
+            row.bind(pos=lambda instance, val, rect=rect: setattr(rect, 'pos', val))
+            row.bind(size=lambda instance, val, rect=rect: setattr(rect, 'size', val))
+
+            word_label = Label(text=word, color=(0, 0, 0, 1), bold=True, size_hint_x=0.4)
+            meaning_label = Label(text=meaning, color=(0, 0, 0, 1), size_hint_x=0.6)
+
+            row.add_widget(word_label)
+            row.add_widget(meaning_label)
+
+            word_container.add_widget(row)
+
+    def filter_words(self, query):
+        filtered = [w for w in self.all_words if query.lower() in w[0].lower()]
+        self.display_words(filtered)
+
+    def go_back(self):
+        self.manager.current = "home"
