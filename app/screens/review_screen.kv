@@ -1,0 +1,55 @@
+<ReviewScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(20)
+        canvas.before:
+            Color:
+                rgba: 0.125, 0.698, 0.667, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            id: word_label
+            text: root.current_display
+            font_size: '36sp'
+            color: 0, 0, 0, 1
+            size_hint_y: 0.7
+            halign: 'center'
+            valign: 'middle'
+            text_size: self.size
+            canvas.before:
+                Color:
+                    rgba: (0.9, 0.9, 1, 1) if not root.flipped else (0.529, 0.808, 0.922, 1)
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [20]
+
+            on_touch_down: root.flip_card() if self.collide_point(*args[1].pos) else None
+
+        CustomRoundedButton:
+            text: "Next"
+            on_press: root.next_card()
+        
+        CustomRoundedButton:
+            text: "Back to Home"
+            on_press: root.go_back()
+
+<CustomRoundedButton@Button>:
+    size_hint_y: None
+    height: dp(50)
+    background_normal: ''
+    background_color: 0, 0, 0, 0  # Transparent background
+    color: 0.2, 0.4, 0.4, 1
+    font_size: sp(18)
+    font_name: 'fonts/Roboto/static/Roboto-Bold.ttf'
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [10]
