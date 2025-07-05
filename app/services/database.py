@@ -7,7 +7,7 @@ def get_connection():
 
 def create_table():
     with get_connection() as conn:
-        conn.execute("Create Table if Not Exists words (word Text, meaning Text)")
+        conn.execute("CREATE TABLE IF NOT EXISTS words (word TEXT PRIMARY KEY, meaning TEXT)")
 
 def save_word(word, meaning):
     with get_connection() as conn:
