@@ -1,12 +1,10 @@
 import requests
-from dotenv import load_dotenv
-import os
+from app.services.config import DEEPL_API_KEY
 
-load_dotenv()
 
 def translate_word(word, source_lang='DE', target_lang='EN'):
     url = "https://api-free.deepl.com/v2/translate"
-    api_key = os.getenv("DEEPL_API_KEY")
+    api_key = DEEPL_API_KEY
     
     if not api_key:
         raise ValueError("API key not found. Please set the DEEPL_API_KEY environment variable.")
