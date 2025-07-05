@@ -1,0 +1,76 @@
+<MultipleChoiceQuizScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(20)
+        spacing: dp(15)
+        canvas.before:
+            Color:
+                rgba: 0.125, 0.698, 0.667, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: root.question_text
+            markup: True
+            font_size: '32sp'
+            size_hint_y: 0.1
+            halign: "center"
+            valign: 'middle'
+            color: 0.2, 0.2, 0.4, 1
+            text_size: self.width, None
+            height: self.texture_size[1]
+
+        GridLayout:
+            id: option_grid
+            cols: 1
+            spacing: dp(15)
+            padding: dp(15)
+            size_hint_y: 0.6
+
+            CustomRoundedButton1:
+                id: btn1
+                text: root.options[0] if len(root.options) > 0 else ""
+                on_press: root.check_answer(self.text)
+            CustomRoundedButton1:
+                id: btn2
+                text: root.options[1] if len(root.options) > 1 else ""
+                on_press: root.check_answer(self.text)
+            CustomRoundedButton1:
+                id: btn3
+                text: root.options[2] if len(root.options) > 2 else ""
+                on_press: root.check_answer(self.text)
+            CustomRoundedButton1:
+                id: btn4
+                text: root.options[3] if len(root.options) > 3 else ""
+                on_press: root.check_answer(self.text)
+
+        CustomRoundedButton1:
+            id: next_btn
+            text: "Next"
+            on_press: root.next_question()
+            disabled: True
+            disabled_color: 0.2, 0.4, 0.4, 1
+
+        CustomRoundedButton1:
+            text: "Back to Home"
+            on_press: root.go_back()
+
+<CustomRoundedButton1@Button>:
+    size_hint_y: None
+    height: dp(50)
+    background_normal: ''
+    background_down: ''
+    background_color: 0, 0, 0, 0
+    font_size: sp(18)
+    font_name: 'fonts/Roboto/static/Roboto-Bold.ttf'
+    color: 0.2, 0.4, 0.4, 1
+
+    canvas.before:
+        Color:
+            rgba: (0.97, 0.94, 0.90, 1) if self.disabled else (1, 1, 1, 1)
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [10]
+

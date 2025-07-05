@@ -1,11 +1,9 @@
-#:import dp kivy.metrics.dp
-#:import sp kivy.metrics.sp
 
 <HomeScreen>:
     BoxLayout:
         orientation: 'vertical'
         padding: dp(20)
-        spacing: dp(20)
+        spacing: dp(10)
 
         canvas.before:
             Color:
@@ -17,28 +15,37 @@
         Label:
             text: 'Vocab'
             font_size: sp(50)
-            size_hint_y: 0.2
+            size_hint_y: 0.8
+            halign: 'center'
+            valign: 'middle'
             color: 0.2, 0.4, 0.4, 1
             font_name: 'fonts/Roboto/static/Roboto-Bold.ttf'
+            text_size: self.size
 
-        # Use custom button style
-        CustomRoundedButton:
-            text: 'Add Word'
-            on_press: root.add_word()
-        CustomRoundedButton:
-            text: 'Word List'
-            on_press: root.word_list()
-        CustomRoundedButton:
-            text: 'Practice'
-            on_press: root.practice()
-        CustomRoundedButton:
-            text: 'Quiz'
-            on_press: root.quiz()
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: dp(240)  # 4 buttons × 50dp + spacing
+            spacing: dp(10)
+            # Use custom button style
+            CustomRoundedButton:
+                text: 'Add Word'
+                on_press: root.add_word()
+            CustomRoundedButton:
+                text: 'Word List'
+                on_press: root.word_list()
+            CustomRoundedButton:
+                text: 'Practice'
+                on_press: root.practice()
+            CustomRoundedButton:
+                text: 'Quiz'
+                on_press: root.quiz()
 
 <CustomRoundedButton@Button>:
     size_hint_y: None
-    height: dp(60)
+    height: dp(50)
     background_normal: ''
+    background_down: ''
     background_color: 0, 0, 0, 0  # Transparent background
     color: 0.2, 0.4, 0.4, 1
     font_size: sp(18)

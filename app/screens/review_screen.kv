@@ -2,7 +2,7 @@
     BoxLayout:
         orientation: 'vertical'
         padding: dp(20)
-        spacing: dp(20)
+        spacing: dp(15)
         canvas.before:
             Color:
                 rgba: 0.125, 0.698, 0.667, 1
@@ -15,7 +15,7 @@
             text: root.current_display
             font_size: '36sp'
             color: 0, 0, 0, 1
-            size_hint_y: 0.7
+            size_hint_y: 0.8
             halign: 'center'
             valign: 'middle'
             text_size: self.size
@@ -32,24 +32,10 @@
         CustomRoundedButton:
             text: "Next"
             on_press: root.next_card()
+            size_hint_y: 0.1
         
         CustomRoundedButton:
             text: "Back to Home"
             on_press: root.go_back()
+            size_hint_y: 0.1
 
-<CustomRoundedButton@Button>:
-    size_hint_y: None
-    height: dp(50)
-    background_normal: ''
-    background_color: 0, 0, 0, 0  # Transparent background
-    color: 0.2, 0.4, 0.4, 1
-    font_size: sp(18)
-    font_name: 'fonts/Roboto/static/Roboto-Bold.ttf'
-
-    canvas.before:
-        Color:
-            rgba: 1, 1, 1, 1
-        RoundedRectangle:
-            pos: self.pos
-            size: self.size
-            radius: [10]

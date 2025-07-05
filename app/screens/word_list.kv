@@ -1,10 +1,15 @@
-#:import dp kivy.metrics.dp
 
 <WordListScreen>:
     BoxLayout:
         orientation: 'vertical'
         spacing: dp(10)
         padding: dp(10)
+        canvas.before:
+            Color:
+                rgba: 0.125, 0.698, 0.667, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
 
         Label:
             text: "Vocabulary List"
@@ -31,3 +36,11 @@
                 size_hint_y: None
                 height: self.minimum_height
                 spacing: dp(5)
+
+        CustomRoundedButton
+            text: "Back to Home"
+            on_press: root.go_back()
+            size_hint_y: 0.1
+
+
+
