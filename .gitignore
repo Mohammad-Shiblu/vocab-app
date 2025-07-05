@@ -6,3 +6,4 @@ app/services/config.py
 *.pyc
 __pycache__/
 builfozer.spec
+vocab.db
