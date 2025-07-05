@@ -1,6 +1,7 @@
 from kivy.uix.screenmanager import Screen
 from kivy.properties import StringProperty, BooleanProperty
 from app.services.database import get_all_words
+import random
 
 class ReviewScreen(Screen):
     current_display = StringProperty("")
@@ -8,6 +9,7 @@ class ReviewScreen(Screen):
 
     def on_enter(self):
         self.words = get_all_words()
+        random.shuffle(self.words)
         self.index = 0
         self.flipped = False
         self.current_display = self.words[self.index][0] if self.words else "No words available"
