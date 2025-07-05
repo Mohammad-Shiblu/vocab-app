@@ -1,2 +1,8 @@
-.env
+.buildozer/
+bin/
 fig/
+fonts/
+app/services/config.py
+*.pyc
+__pycache__/
+builfozer.spec
